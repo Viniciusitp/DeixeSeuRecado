@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">DeixeSeuRecado</string>
+    <string name="novo_recado">Novo Recado</string>
+    <string name="remetente">Remetente</string>
+    <string name="destinatario">Destinatário</string>
+    <string name="recado">Recado</string>
+    <string name="salvar">Salvar</string>
+    <string name="cadastro_de_usuario">Cadastro de Usuário</string>
+    <string name="email">E-mail</string>
+    <string name="senha">Senha</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="login">Login</string>
+    <string name="editar_recado">Editar Recado</string>
+    <string name="logar">Logar</string>
+    <string name="registrar">Registrar</string>
+    <string name="esqueci_minha_senha">Esqueci minha senha</string>
+    <string name="recados">Recados</string>
+    <string name="add">add</string>
+
+
+
+</resources>

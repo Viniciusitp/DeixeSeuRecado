@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "931630619668",
+    "firebase_url": "https://deixe-seu-recado.firebaseio.com",
+    "project_id": "deixe-seu-recado",
+    "storage_bucket": "deixe-seu-recado.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:931630619668:android:b5c78c3eb4cf2efe785b01",
+        "android_client_info": {
+          "package_name": "br.com.vinicius.deixeseurecado"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "931630619668-g5umu5k0em7uvfd3g03dnoh5tcd8cgi1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.vinicius.deixeseurecado",
+            "certificate_hash": "79a135bbe2249029a87fcbf65536c00b66d36fd6"
+          }
+        },
+        {
+          "client_id": "931630619668-f5g1o53frah53pjc99dg8tccc5sm4lln.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWvfHjtHpsjd0A2S0IKzX479wZdAFxp3g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "931630619668-f5g1o53frah53pjc99dg8tccc5sm4lln.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
