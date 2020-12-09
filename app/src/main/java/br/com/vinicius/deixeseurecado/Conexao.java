@@ -12,7 +12,6 @@ public class Conexao {
     private static FirebaseUser firebaseUser;
 
     private Conexao(){
-
     }
 
     public static FirebaseAuth getFirebaseAuth(){
@@ -43,5 +42,4 @@ public class Conexao {
     public static void logOut(){
         firebaseAuth.signOut();
     }
-
 }

@@ -5,6 +5,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
@@ -16,24 +17,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Objects;
 
 import br.com.vinicius.deixeseurecado.model.Recado;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class EditarActivity extends AppCompatActivity {
 
-
-    private EditText mRemetenteEditText;
-
-
-    private EditText mDestinatarioEditText;
-
-
-    private EditText mRecadoEditText;
-
-
-    private Button mSalvarButton;
-
-    private DatabaseReference mDatabaseReference;
+    private EditText remetenteEditText;
+    private EditText destinatarioEditText;
+    private EditText recadoEditText;
+    private Button salvarButton;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,26 +32,26 @@ public class EditarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_editar);
 
         inicializaComponentes();
-        String mKey= Objects.requireNonNull(getIntent().getExtras()).getString("key");
+        String mKey = Objects.requireNonNull(getIntent().getExtras()).getString("key");
 
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference("character").child(mKey);
+        databaseReference = FirebaseDatabase.getInstance().getReference("recado").child(mKey);
 
-        mDatabaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                Recado charater = dataSnapshot.getValue(Recado.class);
+                Recado recado = dataSnapshot.getValue(Recado.class);
 
-                if (charater.getRemetente() != null) {
-                    mRemetenteEditText.setText(charater.getRemetente());
+                if (recado.getRemetente() != null) {
+                    remetenteEditText.setText(recado.getRemetente());
                 }
 
-                if (charater.getDestinatario()!= null) {
-                    mDestinatarioEditText.setText(charater.getDestinatario());
+                if (recado.getDestinatario() != null) {
+                    destinatarioEditText.setText(recado.getDestinatario());
                 }
 
-                if (charater.getRecado() != null) {
-                    mRecadoEditText.setText(charater.getRecado());
+                if (recado.getRecado() != null) {
+                    recadoEditText.setText(recado.getRecado());
                 }
             }
 
@@ -70,18 +61,18 @@ public class EditarActivity extends AppCompatActivity {
             }
         });
 
-        mSalvarButton.setOnClickListener(v -> {
-            mDatabaseReference.child("remetente").setValue(mRemetenteEditText.getText().toString());
-            mDatabaseReference.child("destinatario").setValue(mDestinatarioEditText.getText().toString());
-            mDatabaseReference.child("recado").setValue(mRecadoEditText.getText().toString());
+        salvarButton.setOnClickListener(v -> {
+            databaseReference.child("remetente").setValue(remetenteEditText.getText().toString());
+            databaseReference.child("destinatario").setValue(destinatarioEditText.getText().toString());
+            databaseReference.child("recado").setValue(recadoEditText.getText().toString());
             finish();
         });
     }
-    private void inicializaComponentes(){
-        mRemetenteEditText = (EditText) findViewById(R.id.remetenteEditText);
-        mDestinatarioEditText = (EditText) findViewById(R.id.destinatarioEditText);
-        mRecadoEditText = (EditText) findViewById(R.id.recadoEditText);
-        mSalvarButton = (Button) findViewById(R.id.salvarButton);
 
+    private void inicializaComponentes() {
+        remetenteEditText = (EditText) findViewById(R.id.remetenteEditText);
+        destinatarioEditText = (EditText) findViewById(R.id.destinatarioEditText);
+        recadoEditText = (EditText) findViewById(R.id.recadoEditText);
+        salvarButton = (Button) findViewById(R.id.salvarButton);
     }
 }

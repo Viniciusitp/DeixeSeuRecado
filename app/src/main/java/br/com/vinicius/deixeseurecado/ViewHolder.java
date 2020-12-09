@@ -1,13 +1,11 @@
 package br.com.vinicius.deixeseurecado;
 
 import android.view.View;
-
 import androidx.recyclerview.widget.RecyclerView;
-
 
 public abstract class ViewHolder extends RecyclerView.ViewHolder {
 
-    private int mCurrentPosition;
+    private int currentPosition;
 
     public ViewHolder(View itemView) {
         super(itemView);
@@ -16,11 +14,11 @@ public abstract class ViewHolder extends RecyclerView.ViewHolder {
     protected abstract void clear();
 
     public void onBind(int position) {
-        mCurrentPosition = position;
+        currentPosition = position;
         clear();
     }
 
     public int getCurrentPosition() {
-        return mCurrentPosition;
+        return currentPosition;
     }
 }

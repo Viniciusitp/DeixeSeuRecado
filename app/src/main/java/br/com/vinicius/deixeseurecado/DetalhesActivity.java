@@ -1,38 +1,23 @@
 package br.com.vinicius.deixeseurecado;
 
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.Objects;
-
 import br.com.vinicius.deixeseurecado.model.Recado;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class DetalhesActivity extends AppCompatActivity {
 
-
-    private TextView mRemetenteTextView;
-
-
-
-    private TextView mDestinatarioTextView;
-
-
-    private TextView mRecadoTextView;
-
-    private DatabaseReference mDatabaseReference;
+    private TextView remetenteTextView;
+    private TextView destinatarioTextView;
+    private TextView recadoTextView;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,24 +27,24 @@ public class DetalhesActivity extends AppCompatActivity {
         inicializaComponentes();
         String mKey= Objects.requireNonNull(getIntent().getExtras()).getString("key");
 
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference("character").child(mKey);
+        databaseReference = FirebaseDatabase.getInstance().getReference("recado").child(mKey);
 
-        mDatabaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                Recado charater = dataSnapshot.getValue(Recado.class);
+                Recado recado = dataSnapshot.getValue(Recado.class);
 
-                if (charater.getRemetente() != null) {
-                    mRemetenteTextView.setText(charater.getRemetente());
+                if (recado.getRemetente() != null) {
+                    remetenteTextView.setText(recado.getRemetente());
                 }
 
-                if (charater.getDestinatario() != null) {
-                    mDestinatarioTextView.setText(charater.getDestinatario());
+                if (recado.getDestinatario() != null) {
+                    destinatarioTextView.setText(recado.getDestinatario());
                 }
 
-                if (charater.getRecado() != null) {
-                    mRecadoTextView.setText(charater.getRecado());
+                if (recado.getRecado() != null) {
+                    recadoTextView.setText(recado.getRecado());
                 }
             }
 
@@ -71,10 +56,8 @@ public class DetalhesActivity extends AppCompatActivity {
     }
 
     private void inicializaComponentes(){
-        mRemetenteTextView = (TextView) findViewById(R.id.remetenteTextView);
-        mDestinatarioTextView = (TextView) findViewById(R.id.destinatarioTextView);
-        mRecadoTextView = (TextView) findViewById(R.id.recadoTextView);
-
-
+        remetenteTextView = (TextView) findViewById(R.id.remetenteTextView);
+        destinatarioTextView = (TextView) findViewById(R.id.destinatarioTextView);
+        recadoTextView = (TextView) findViewById(R.id.recadoTextView);
     }
 }

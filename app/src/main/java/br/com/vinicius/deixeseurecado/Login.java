@@ -2,15 +2,12 @@ package br.com.vinicius.deixeseurecado;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -19,7 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class Login extends AppCompatActivity {
 
     private EditText editEmail, editSenha;
-    private Button btnLogar, btnRegistrar,btnSair;
+    private Button btnLogar, btnRegistrar;
     private FirebaseAuth auth;
 
     @Override
@@ -72,9 +69,6 @@ public class Login extends AppCompatActivity {
         editSenha = (EditText) findViewById(R.id.editLoginSenha);
         btnLogar = (Button) findViewById(R.id.btnLoginLogar);
         btnRegistrar = (Button) findViewById(R.id.btnLoginCadastrar);
-        btnSair = (Button) findViewById(R.id.btnSair);
-
-
     }
 
     @Override

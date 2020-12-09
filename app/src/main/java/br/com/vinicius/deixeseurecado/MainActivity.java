@@ -1,17 +1,14 @@
 package br.com.vinicius.deixeseurecado;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -19,55 +16,36 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
-
 import br.com.vinicius.deixeseurecado.model.Recado;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
-public class
-MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
-    @SuppressLint("NonConstantResourceId")
-    @BindView(R.id.characterRecyclerView)
-    RecyclerView mRecyclerView;
-
-    @SuppressLint("NonConstantResourceId")
-    @BindView(R.id.newFloatingActionButton)
-    FloatingActionButton mNewFloatingActionButton;
-
-
-
-    private Button btnSair;
-
-
-    FeedAdapter mCharacterAdapter;
-
-    LinearLayoutManager mLayoutManager;
-
-    private ArrayList<Recado> mListRecado;
-
-    private DatabaseReference mDatabaseReference;
-
-    private FirebaseAuth auth;
-
-
+    private RecyclerView recyclerView;
+    private FloatingActionButton newFloatingActionButton;
+    private ImageButton btnSair;
+    private FeedAdapter characterAdapter;
+    private LinearLayoutManager layoutManager;
+    private ArrayList<Recado> listRecado;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnSair = findViewById(R.id.btnSair);
-        ButterKnife.bind(this);
+        inicializaComponentes();
 
-        mListRecado = new ArrayList<>();
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference("character");
+        listRecado = new ArrayList<>();
+        databaseReference = FirebaseDatabase.getInstance().getReference("recado");
 
-        mNewFloatingActionButton.setOnClickListener(v -> {
-            Intent intent=new Intent(MainActivity.this, AdicionarActivity.class);
-            startActivity(intent);
+        newFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this, AdicionarActivity.class);
+                startActivity(intent);
+
+            }
         });
 
         Recycler();
@@ -83,36 +61,28 @@ MainActivity extends AppCompatActivity {
         });
     }
 
-
     public void Recycler() {
-
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mCharacterAdapter = new FeedAdapter(mListRecado);
-        mRecyclerView.setAdapter(mCharacterAdapter);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        characterAdapter = new FeedAdapter(listRecado);
+        recyclerView.setAdapter(characterAdapter);
         Content();
         deleteSwipe();
-        
     }
 
-
-
     private void Content() {
-
-        mDatabaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
-                mListRecado.clear();
-
+                listRecado.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Recado recado = postSnapshot.getValue(Recado.class);
                     if (recado != null) {
                         recado.setKey(postSnapshot.getKey());
                     }
-                    mListRecado.add(recado);
+                    listRecado.add(recado);
                 }
-                mCharacterAdapter.notifyDataSetChanged();
+                characterAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -123,9 +93,7 @@ MainActivity extends AppCompatActivity {
     }
 
     private void deleteSwipe() {
-
         ItemTouchHelper.SimpleCallback touchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
                 return false;
@@ -133,13 +101,17 @@ MainActivity extends AppCompatActivity {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                mDatabaseReference.child(mListRecado.get(viewHolder.getAdapterPosition()).getKey()).setValue(null);
-                mCharacterAdapter.deleteItem(viewHolder.getAdapterPosition());
+                databaseReference.child(listRecado.get(viewHolder.getAdapterPosition()).getKey()).setValue(null);
+                characterAdapter.deleteItem(viewHolder.getAdapterPosition());
             }
         };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(touchHelperCallback);
-        itemTouchHelper.attachToRecyclerView(mRecyclerView);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
-
+    private void inicializaComponentes(){
+        recyclerView = (RecyclerView) findViewById(R.id.characterRecyclerView);
+        newFloatingActionButton = (FloatingActionButton) findViewById(R.id.newFloatingActionButton);
+        btnSair = (ImageButton) findViewById(R.id.btnSair);
+    }
 }

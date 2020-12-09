@@ -21,9 +21,6 @@ public class Cadastro extends AppCompatActivity {
     private Button btnRegistrar, btnLogin;
     private FirebaseAuth auth;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +37,7 @@ public class Cadastro extends AppCompatActivity {
                 finish();
             }
         });
+
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,8 +58,7 @@ public class Cadastro extends AppCompatActivity {
                     startActivity(i);
                     finish();
                 }else {
-                    alert("Erro de cadastro");
-
+                    alert("Erro ao cadastrar");
                 }
             }
         });
@@ -75,7 +72,6 @@ public class Cadastro extends AppCompatActivity {
         editSenha = (EditText) findViewById(R.id.editCadastroSenha);
         btnRegistrar = (Button) findViewById(R.id.btnCadastroRegistrar);
         btnLogin = (Button) findViewById(R.id.btnCadastroLogin);
-
     }
 
     @Override
