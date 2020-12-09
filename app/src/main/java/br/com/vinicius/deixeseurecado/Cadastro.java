@@ -76,7 +76,6 @@ public class Cadastro extends AppCompatActivity {
         btnRegistrar = (Button) findViewById(R.id.btnCadastroRegistrar);
         btnLogin = (Button) findViewById(R.id.btnCadastroLogin);
 
-
     }
 
     @Override

@@ -16,25 +16,22 @@ import butterknife.ButterKnife;
 
 public class AdicionarActivity extends AppCompatActivity {
 
-    @BindView(R.id.remetenteEditText)
-    EditText mRemetenteEditText;
+    private EditText mRemetenteEditText;
 
-    @BindView(R.id.destinatarioEditText)
-    EditText mDestinatarioEditText;
+    private EditText mDestinatarioEditText;
 
-    @BindView(R.id.recadoEditText)
-    EditText mRecadoEditText;
+    private EditText mRecadoEditText;
 
-    @BindView(R.id.salvarButton)
-    Button mSalvarButton;
+    private Button mSalvarButton;
 
     private DatabaseReference mDatabaseReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adicionar);
 
-        ButterKnife.bind(this);
+        inicializaComponentes();
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference("character");
 
@@ -49,6 +46,16 @@ public class AdicionarActivity extends AppCompatActivity {
 
             Intent intent=new Intent(this, MainActivity.class);
             startActivity(intent);
+            finish();
         });
     }
+    private void inicializaComponentes(){
+        mRemetenteEditText = (EditText) findViewById(R.id.remetenteEditText);
+        mDestinatarioEditText = (EditText) findViewById(R.id.destinatarioEditText);
+        mRecadoEditText = (EditText) findViewById(R.id.recadoEditText);
+        mSalvarButton = (Button) findViewById(R.id.salvarButton);
+
+    }
+
+
 }

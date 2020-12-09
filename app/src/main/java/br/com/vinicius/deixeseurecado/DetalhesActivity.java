@@ -1,6 +1,8 @@
 package br.com.vinicius.deixeseurecado;
 
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,14 +22,15 @@ import butterknife.ButterKnife;
 
 public class DetalhesActivity extends AppCompatActivity {
 
-    @BindView(R.id.remetenteTextView)
-    TextView mRemetenteTextView;
 
-    @BindView(R.id.destinatarioTextView)
-    TextView mDestinatarioTextView;
+    private TextView mRemetenteTextView;
 
-    @BindView(R.id.recadoTextView)
-    TextView mRecadoTextView;
+
+
+    private TextView mDestinatarioTextView;
+
+
+    private TextView mRecadoTextView;
 
     private DatabaseReference mDatabaseReference;
 
@@ -36,7 +39,7 @@ public class DetalhesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhes);
 
-        ButterKnife.bind(this);
+        inicializaComponentes();
         String mKey= Objects.requireNonNull(getIntent().getExtras()).getString("key");
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference("character").child(mKey);
@@ -65,5 +68,13 @@ public class DetalhesActivity extends AppCompatActivity {
                 Toast.makeText(DetalhesActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void inicializaComponentes(){
+        mRemetenteTextView = (TextView) findViewById(R.id.remetenteTextView);
+        mDestinatarioTextView = (TextView) findViewById(R.id.destinatarioTextView);
+        mRecadoTextView = (TextView) findViewById(R.id.recadoTextView);
+
+
     }
 }

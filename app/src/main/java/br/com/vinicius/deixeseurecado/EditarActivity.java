@@ -21,17 +21,17 @@ import butterknife.ButterKnife;
 
 public class EditarActivity extends AppCompatActivity {
 
-    @BindView(R.id.remetenteEditText)
-    EditText mRemetenteEditText;
 
-    @BindView(R.id.destinatarioEditText)
-    EditText mDestinatarioEditText;
+    private EditText mRemetenteEditText;
 
-    @BindView(R.id.recadoEditText)
-    EditText mRecadoEditText;
 
-    @BindView(R.id.salvarButton)
-    Button mSalvarButton;
+    private EditText mDestinatarioEditText;
+
+
+    private EditText mRecadoEditText;
+
+
+    private Button mSalvarButton;
 
     private DatabaseReference mDatabaseReference;
 
@@ -39,7 +39,8 @@ public class EditarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar);
-        ButterKnife.bind(this);
+
+        inicializaComponentes();
         String mKey= Objects.requireNonNull(getIntent().getExtras()).getString("key");
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference("character").child(mKey);
@@ -75,5 +76,12 @@ public class EditarActivity extends AppCompatActivity {
             mDatabaseReference.child("recado").setValue(mRecadoEditText.getText().toString());
             finish();
         });
+    }
+    private void inicializaComponentes(){
+        mRemetenteEditText = (EditText) findViewById(R.id.remetenteEditText);
+        mDestinatarioEditText = (EditText) findViewById(R.id.destinatarioEditText);
+        mRecadoEditText = (EditText) findViewById(R.id.recadoEditText);
+        mSalvarButton = (Button) findViewById(R.id.salvarButton);
+
     }
 }

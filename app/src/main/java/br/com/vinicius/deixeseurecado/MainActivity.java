@@ -3,6 +3,8 @@ package br.com.vinicius.deixeseurecado;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,6 +37,11 @@ MainActivity extends AppCompatActivity {
     @BindView(R.id.newFloatingActionButton)
     FloatingActionButton mNewFloatingActionButton;
 
+
+
+    private Button btnSair;
+
+
     FeedAdapter mCharacterAdapter;
 
     LinearLayoutManager mLayoutManager;
@@ -42,11 +50,16 @@ MainActivity extends AppCompatActivity {
 
     private DatabaseReference mDatabaseReference;
 
+    private FirebaseAuth auth;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        btnSair = findViewById(R.id.btnSair);
         ButterKnife.bind(this);
 
         mListRecado = new ArrayList<>();
@@ -58,7 +71,18 @@ MainActivity extends AppCompatActivity {
         });
 
         Recycler();
+
+        btnSair.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Toast.makeText(MainActivity.this, "Você saiu!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), Login.class));
+                finish();
+            }
+        });
     }
+
 
     public void Recycler() {
 
@@ -68,7 +92,10 @@ MainActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mCharacterAdapter);
         Content();
         deleteSwipe();
+        
     }
+
+
 
     private void Content() {
 
@@ -113,4 +140,6 @@ MainActivity extends AppCompatActivity {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(touchHelperCallback);
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
+
+
 }

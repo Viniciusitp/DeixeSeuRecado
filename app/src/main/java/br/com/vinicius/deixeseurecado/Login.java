@@ -19,16 +19,13 @@ import com.google.firebase.auth.FirebaseAuth;
 public class Login extends AppCompatActivity {
 
     private EditText editEmail, editSenha;
-    private Button btnLogar, btnRegistrar;
-    private TextView textResetSenha;
-
+    private Button btnLogar, btnRegistrar,btnSair;
     private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         inicializaComponentes();
         eventClicks();
     }
@@ -58,6 +55,7 @@ public class Login extends AppCompatActivity {
                 if(task.isSuccessful()){
                     Intent i = new Intent(Login.this,MainActivity.class);
                     startActivity(i);
+                    finish();
                 }else{
                     alert("Email ou senha errado");
                 }
@@ -74,7 +72,8 @@ public class Login extends AppCompatActivity {
         editSenha = (EditText) findViewById(R.id.editLoginSenha);
         btnLogar = (Button) findViewById(R.id.btnLoginLogar);
         btnRegistrar = (Button) findViewById(R.id.btnLoginCadastrar);
-        /*textResetSenha = (TextView) findViewById(R.id.txtResetSenha);*/
+        btnSair = (Button) findViewById(R.id.btnSair);
+
 
     }
 
